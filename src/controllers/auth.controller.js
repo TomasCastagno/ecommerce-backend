@@ -1,20 +1,24 @@
 const AuthServices = require("../services/auth.service");
+const registerMail = require("../templates/register.mail");
 const transporter = require("../utils/mailer");
+require("dotenv").config();
 
 const register = async (req, res) => {
   try {
     const newUser = req.body;
     const result = await AuthServices.register(newUser);
     if (result) {
-      res.status(201).json({ message: "user created" });
-      //   await transporter.sendMail({
-      //     to: result.email,
-      //     from: "tomascastagno@live.com.ar",
-      //     subject: "Email confirmation nodemailer",
-      //     html: "<h1>Bienvenido a la mejor app de chat creada por mi</h1> <p> Tienes que confirmar tu email</p> <p> Solo haz click en el siguiente <a href='#' target='new_blank'> enlace </a>",
-      //   });
+      await transporter.sendMail({
+        to: newUser.email,
+        from: process.env.MAIL,
+        subject: `Welcome ${newUser.username}`,
+        html: registerMail,
+      });
+      res.status(201).json({ message: "User successfully created" });
     } else {
-      res.status(400).json({ message: "something wrong" });
+      res
+        .status(401)
+        .json({ message: "Something is wrong with the send mail." });
     }
   } catch (error) {
     res.status(400).json(error.message);
@@ -25,7 +29,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).json({
+      res.status(401).json({
         error: "Missing data",
         message: "Not email or password provided",
       });
@@ -42,22 +46,13 @@ const login = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(400).json({ message: "Something wrong" });
-  }
-};
-
-//ejemplo para obtener todos los usuarios (ruta protegida)
-const getAllUsers = async (req, res) => {
-  try {
-    const result = await AuthServices.getAll();
-    res.json(result);
-  } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json({
+      message: `Something is wrong with the login controller. ${error.message}`,
+    });
   }
 };
 
 module.exports = {
   register,
   login,
-  getAllUsers,
 };

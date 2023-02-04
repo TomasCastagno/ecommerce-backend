@@ -28,16 +28,16 @@ function initModels(sequelize) {
     as: "product",
     foreignKey: "product_id",
   });
-  products.hasOne(products_in_cart, {
-    as: "products_in_cart",
+  products.hasMany(products_in_cart, {
+    as: "products_in_carts",
     foreignKey: "product_id",
   });
   products_in_order.belongsTo(products, {
     as: "product",
     foreignKey: "product_id",
   });
-  products.hasOne(products_in_order, {
-    as: "products_in_order",
+  products.hasMany(products_in_order, {
+    as: "products_in_orders",
     foreignKey: "product_id",
   });
   cart.belongsTo(users, { as: "user", foreignKey: "user_id" });

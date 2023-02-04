@@ -3,6 +3,7 @@ const ProductService = require("../services/product.service");
 const createProduct = async (req, res) => {
   try {
     const newProduct = req.body;
+    newProduct.user_id = req.user.id;
     const result = await ProductService.add(newProduct);
     res.status(201).json(result);
   } catch (error) {

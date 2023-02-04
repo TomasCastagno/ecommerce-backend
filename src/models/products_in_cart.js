@@ -27,8 +27,7 @@ class products_in_cart extends Sequelize.Model {
       references: {
         model: 'products',
         key: 'id'
-      },
-      unique: "products_in_cart_product_id_key"
+      }
     },
     quantity: {
       type: DataTypes.INTEGER,
@@ -36,7 +35,7 @@ class products_in_cart extends Sequelize.Model {
     },
     status: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: false
     }
   }, {
@@ -50,13 +49,6 @@ class products_in_cart extends Sequelize.Model {
         unique: true,
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "products_in_cart_product_id_key",
-        unique: true,
-        fields: [
-          { name: "product_id" },
         ]
       },
     ]

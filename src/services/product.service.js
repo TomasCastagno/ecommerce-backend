@@ -1,24 +1,20 @@
-const { products: Products, users: Users } = require("../models");
+const { Op } = require("sequelize");
+const { Products, Users } = require("../models");
 
 class ProductService {
   static async add(newProduct) {
     try {
-      const productAdded = await Products.create(newProduct);
-      if (productAdded.user_id) {
-        const { user_id } = newProduct;
-        const seller = await Users.findOne({
-          where: { id: user_id },
-          attributes: ["username"],
-        });
-        const productWithDetails = await Products.findOne({
-          where: { id: productAdded.id },
-        });
-        return {
-          product: productWithDetails,
-          seller: seller.username,
-        };
-      }
-      return productAdded;
+      const product = await Products.create(newProduct);
+
+      const seller = await Users.findOne({
+        where: product.user_id,
+        attributes: ["username"],
+      });
+
+      return {
+        product,
+        seller: seller.username,
+      };
     } catch (error) {
       throw error;
     }
@@ -27,6 +23,11 @@ class ProductService {
   static async getAll() {
     try {
       const products = await Products.findAll({
+        where: {
+          stock: {
+            [Op.gt]: 0,
+          },
+        },
         include: {
           model: Users,
           as: "seller",
@@ -35,6 +36,7 @@ class ProductService {
       });
 
       return products.map((product) => ({
+        id: product.id,
         name: product.name,
         price: product.price,
         stock: product.stock,

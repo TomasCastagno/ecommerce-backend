@@ -1,8 +1,16 @@
 const { Router } = require("express");
-const { addProductInCart } = require("../controllers/cart.controller");
+const {
+  addProductInCart,
+  getProductsInCart,
+} = require("../controllers/cart.controller");
+const authMiddleware = require("../middlewares/auth.middlewares");
 
 const router = Router();
 
-router.post("/cart", addProductInCart);
+// añadir producto a carrito
+router.post("/cart", authMiddleware, addProductInCart);
+
+// obtener todos los prodocutos de un carrito
+router.get("/cart", authMiddleware, getProductsInCart);
 
 module.exports = router;

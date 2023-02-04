@@ -4,7 +4,6 @@ require("dotenv").config();
 const authMiddleware = (req, res, next) => {
   let { authorization: token } = req.headers;
   token = token?.replace("Bearer ", "");
-  console.log(token);
   jwt.verify(
     token,
     process.env.JWT_SECRET,
@@ -16,7 +15,7 @@ const authMiddleware = (req, res, next) => {
           message: "El token no es válido o expiró, envía un token correcto",
         });
       } else {
-        console.log(decoded);
+        req.user = decoded;
         next();
       }
     }

@@ -1,5 +1,5 @@
 {
-  "name": "skeleton",
+  "name": "e-commerce",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,7 +20,9 @@
     "nodemailer": "^6.9.1",
     "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.28.0"
+    "sequelize": "^6.28.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

@@ -1,12 +1,17 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { users: Users } = require("../models");
+const { Users, Cart } = require("../models");
 require("dotenv").config();
 
 class AuthServices {
   static async register(newUser) {
     try {
       const result = await Users.create(newUser);
+      const { id } = result;
+      await Cart.create({
+        user_id: id,
+        total_price: 0,
+      });
       return result;
     } catch (error) {
       throw error;
@@ -30,7 +35,7 @@ class AuthServices {
   static genToken(data) {
     try {
       const token = jwt.sign(data, process.env.JWT_SECRET, {
-        expiresIn: "10m",
+        // expiresIn: "10m",
         algorithm: "HS512",
       });
       return token;
@@ -39,15 +44,6 @@ class AuthServices {
     }
   }
 
-  //ejemplo para obtener todos los usuarios (rutra protegida)
-  static async getAll() {
-    try {
-      const result = await Users.findAll();
-      return result;
-    } catch (error) {
-      throw error;
-    }
-  }
 }
 
 module.exports = AuthServices;

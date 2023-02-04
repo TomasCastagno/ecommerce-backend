@@ -2,9 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const db = require("./utils/database");
-const authRoutes = require("./routes/auth.routes");
-const productsRoutes = require("./routes/products.routes");
-const cartRoutes = require("./routes/cart.routes");
+const apiRoutes = require("./routes");
 
 require("dotenv").config();
 
@@ -21,12 +19,6 @@ db.sync({ force: false })
   .then(() => console.log("Base de datos sincronizada."))
   .catch((error) => console.log(error));
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to my server" });
-});
-
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1", productsRoutes);
-app.use("/api/v1", cartRoutes);
+apiRoutes(app);
 
 module.exports = app;

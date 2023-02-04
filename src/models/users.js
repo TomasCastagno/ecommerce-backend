@@ -4,6 +4,33 @@ module.exports = (sequelize, DataTypes) => {
   return users.init(sequelize, DataTypes);
 };
 
+/**
+ * @openapi
+ * components:
+ *   schema:
+ *     register:
+ *       type: object
+ *       properties:
+ *         username:
+ *           type: string
+ *           example: Tomas
+ *         email:
+ *           type: string
+ *           example: tomas@example.com
+ *         password:
+ *           type: string
+ *           example: 1234
+ *     login:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           example: tomas@example.com
+ *         password:
+ *           type: string
+ *           example: 1234
+ */
+
 class users extends Sequelize.Model {
   static init(sequelize, DataTypes) {
     return super.init(
