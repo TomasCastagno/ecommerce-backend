@@ -31,19 +31,34 @@ const router = Router();
  *             schema:
  *               type: object
  *               properties:
- *                 message:
+ *                 product:
+ *                   type: object
+ *                   properties:
+ *                     is_available:
+ *                       type: boolean
+ *                       example: true
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     name:
+ *                       type: string
+ *                       example: Iphone 12
+ *                     description:
+ *                       type: string
+ *                       example: the elegant flat-edge design
+ *                     image:
+ *                       type: string
+ *                       example: https://www.apple.com/newsroom/images/product/iphone/standard/apple_iphone-12-spring21_purple_04202021_big.jpg.large.jpg
+ *                     price:
+ *                       type: number
+ *                       format: float
+ *                       example: 900.00
+ *                     stock:
+ *                       type: integer
+ *                       example: 15
+ *                 seller:
  *                   type: string
- *                   example: Product has been successfully added.
- *       400:
- *         description: Something wrong when trying to add product.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Something wrong when trying to add product
+ *                   example: Tomas
  *   get:
  *     security:
  *       - bearerAuth: []

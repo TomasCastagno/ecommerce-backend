@@ -5,7 +5,7 @@ class ProductService {
   static async add(newProduct) {
     try {
       const product = await Products.create(newProduct, {
-        attributes: { exclude: "user_id " },
+        attributes: { exclude: ["user_id"] },
       });
 
       const seller = await Users.findOne({
