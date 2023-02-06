@@ -18,7 +18,7 @@ const options = {
       title: "E-commerce API",
       version: "1.0.0",
       description:
-        "API for management of an online store for sale and purchase of products.",
+        "API for management of an online store for sale and purchase of products. by Walter Tomás Castagno",
     },
   },
 };
