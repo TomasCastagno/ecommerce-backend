@@ -4,10 +4,12 @@ const { Products, Users } = require("../models");
 class ProductService {
   static async add(newProduct) {
     try {
-      const product = await Products.create(newProduct);
+      const product = await Products.create(newProduct, {
+        attributes: { exclude: "user_id " },
+      });
 
       const seller = await Users.findOne({
-        where: product.user_id,
+        where: { id: product.user_id },
         attributes: ["username"],
       });
 
@@ -35,14 +37,7 @@ class ProductService {
         },
       });
 
-      return products.map((product) => ({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        stock: product.stock,
-        is_available: product.is_available,
-        seller: product.seller.username,
-      }));
+      return products;
     } catch (error) {
       throw error;
     }

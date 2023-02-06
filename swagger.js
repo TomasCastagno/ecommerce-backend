@@ -8,6 +8,9 @@ const options = {
     "./src/models/users.js",
     "./src/routes/products.routes.js",
     "./src/models/products.js",
+    "./src/routes/cart.routes.js",
+    "./src/models/products_in_cart.js",
+    "./src/routes/purchases.routes.js",
   ],
   definition: {
     openapi: "3.0.0",

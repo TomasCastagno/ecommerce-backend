@@ -16,7 +16,7 @@ const purchaseCart = async (req, res) => {
       });
       res
         .status(200)
-        .json({ message: "the purchase has been successfully completed" });
+        .json({ message: "The purchase has been successfully completed." });
     } else {
       res
         .status(401)

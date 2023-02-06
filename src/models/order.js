@@ -36,7 +36,7 @@ class order extends Sequelize.Model {
         sequelize,
         tableName: "order",
         schema: "public",
-        timestamps: false,
+        timestamps: true,
         indexes: [
           {
             name: "order_pkey",

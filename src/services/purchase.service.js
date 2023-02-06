@@ -82,6 +82,7 @@ class PurchaseService {
     try {
       const result = await Order.findAll({
         where: { user_id: id },
+        attributes: { exclude: ["user_id"] },
         include: {
           model: ProductsInOrder,
           as: "products_in_orders",

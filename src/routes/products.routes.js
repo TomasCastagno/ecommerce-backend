@@ -44,6 +44,57 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Something wrong when trying to add product
+ *   get:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Get all the products.
+ *     description: Get all the products in the store.
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     example: Iphone 12
+ *                   description:
+ *                     type: string
+ *                     example: The elegant flat-edge design
+ *                   image:
+ *                     type: string
+ *                     example: https://www.apple.com/newsroom/images/product/iphone/standard/apple_iphone-12-spring21_purple_04202021_big.jpg.large.jpg
+ *                   price:
+ *                     type: number
+ *                     format: float
+ *                     example: 900.00
+ *                   stock:
+ *                     type: integer
+ *                     example: 15
+ *                   is_available:
+ *                     type: boolean
+ *                     example: true
+ *                   seller:
+ *                     type: string
+ *                     example: Julia
+ *       400:
+ *         description: Something went wrong when trying to get products.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Something went wrong when trying to get products.
  */
 
 // crear nuevo producto

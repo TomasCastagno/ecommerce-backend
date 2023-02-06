@@ -69,10 +69,6 @@ const router = Router();
  *             schema:
  *               type: object
  *               properties:
- *                 message:
- *                   type: string
- *                   example: Successful login.
- *               data:
  *                 username:
  *                   type: string
  *                   example: Tomas
@@ -84,7 +80,7 @@ const router = Router();
  *                   example: tomas@example.com
  *                 token:
  *                   type: string
- *                   example: $2b$10$f4Xv8rbMUcuqK8Xs432SruAM03Zcee.223b0mwdXDGP.t81afoh3.
+ *                   example: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRvbcOhcyBDYXN0YWdubyIsImlkIjo2LCJlbWFpbCI6InRvbWFzY2FzdGFnbm9AbGl2ZS5jb20uYXIiLCJpYXQiOjE2NzU1NDE3MjJ9.Z0ofHivYQRGom7Dsd9ifeyIrC_gb-vs8dYGABC95TSRoltIOu0PglXRCHZISSoohX9dnA1X_B1Hzp_841myYIw
  *         password:
  *           type: string
  *           example: 1234

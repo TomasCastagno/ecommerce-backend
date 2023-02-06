@@ -12,11 +12,12 @@ class CartService {
         throw new Error(`There is not enough stock of the product.`);
       }
 
-      // si el producto ya existe en el carrito actualiza la cantidad y si no existe crea un nuevo producto en la lista.
+      // buscar si el producto ya existe en el carrito actualiza la cantidad
+      //y si no existe crea un nuevo producto en la lista.
 
       let result;
       const productInCart = await ProductsInCart.findOne({
-        where: { product_id, cart_id: id },
+        where: { product_id },
       });
       if (productInCart) {
         result = await ProductsInCart.update(
@@ -24,7 +25,7 @@ class CartService {
             quantity: productInCart.quantity + quantity,
           },
           {
-            where: { product_id, cart_id: id },
+            where: { product_id },
           }
         );
       } else {
@@ -36,11 +37,12 @@ class CartService {
       }
       const total_price = product.price * quantity;
 
+      // busco en el carrito perteneciente al usuario cuanto es el precio que tiene hasta el momento
       const cart = await Cart.findByPk(id);
 
       const { total_price: prevTotal } = cart;
 
-      // esto vericia si había antes otros productos en el carrito para que cuando actualize diga el precio total según la cantidad de articulos que haya.
+      // sumo el total que tenía el carrito hasta ahora con el nuevo total de esta nueva carga de producto
 
       const newTotalPrice = prevTotal + total_price;
 
@@ -68,20 +70,20 @@ class CartService {
             as: "product",
             attributes: ["name", "price"],
           },
+          {
+            model: Cart,
+            as: "cart",
+            attributes: ["total_price"],
+            include: {
+              model: Users,
+              as: "user",
+              attributes: ["username"],
+            },
+          },
         ],
       });
 
-      const cart = await Cart.findOne({
-        where: { id },
-        attributes: { exclude: ["user_id"] },
-        include: {
-          model: Users,
-          as: "user",
-          attributes: ["id", "username"],
-        },
-      });
-
-      return { productsInCart, cart };
+      return productsInCart;
     } catch (error) {
       throw new Error(
         `Error in CartService.getById: ${error.message} ${console.log(id)}`
