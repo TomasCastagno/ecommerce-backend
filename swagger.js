@@ -33,7 +33,7 @@ const swaggerDocs = (app, port) => {
     res.send(swaggerSpec);
   });
   console.log(
-    `La documentación está disponible en ${process.env.URL}:${port}/api/v1/docs`
+    `La documentación está disponible en ${process.env.DB_HOST}:${port}/api/v1/docs`
   );
 };
 
